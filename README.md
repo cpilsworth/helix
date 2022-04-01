@@ -1,9 +1,9 @@
-# Your Project's Title...
-Your project's description...
+# Helix Test Project
+Sample project based on boilerplate and google docs
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--helix--cpilsworth.hlx.page/
+- Live: https://main--helix--cpilsworth.hlx.live/
 
 ## Installation
 
