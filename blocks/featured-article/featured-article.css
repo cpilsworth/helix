@@ -1,0 +1,20 @@
+.featured-article {
+    min-height: 320px;
+    padding: 0;
+    margin-bottom: 24px;
+}
+
+.featured-article div {
+    display: flex;
+}
+
+.featured-article>div div:first-child {
+    left: 0;
+    width: 30%;
+}
+
+.featured-article div:nth-child(2) {
+    right: 0;
+    width: 70%;
+    flex-direction: column;
+}
