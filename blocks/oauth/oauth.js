@@ -39,7 +39,7 @@ async function login(code) {
     const { login } = await getUserResponse.json()
     $login.textContent = login
     document.body.dataset.state = "signed-in"
-    return Promise.
+    return Promise.resolve("ok")
 }
 
 function getCookies() {
