@@ -1,13 +1,12 @@
 const WORKER_URL = "https://worker.cpilsworth.workers.dev"
-const code = new URL(location.href).searchParams.get("code")
+const code = new URL(window.location.href).searchParams.get("code")
 const $login = document.querySelector(".oauth")
-
-if (code) {
-    login(code)
-}
 
 async function login(code) {
     // remove ?code=... from URL
+    const { history } = window
+    const { location } = history
+
     const path =
         location.pathname +
         location.search.replace(/\bcode=\w+/, "").replace(/\?$/, "")
@@ -15,34 +14,43 @@ async function login(code) {
 
     document.body.dataset.state = "loading"
 
-    try {
-        const response = await fetch(WORKER_URL, {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({ code }),
-        })
+    const response = await fetch(WORKER_URL, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify({ code }),
+    })
 
-        const result = await response.json()
+    const result = await response.json()
 
-        if (result.error) {
-            return alert(JSON.stringify(result, null, 2))
-        }
-
-        // token can now be used to send authenticated requests against https://api.github.com
-        const getUserResponse = await fetch("https://api.github.com/user", {
-            headers: {
-                accept: "application/vnd.github.v3+json",
-                authorization: `token ${result.token}`,
-            },
-        })
-        const { login } = await getUserResponse.json()
-        $login.textContent = login
-        document.body.dataset.state = "signed-in"
-    } catch (error) {
-        alert(error)
-        location.reload()
+    if (result.error) {
+        return alert(JSON.stringify(result, null, 2))
     }
+
+    // token can now be used to send authenticated requests against https://api.github.com
+    const getUserResponse = await fetch("https://api.github.com/user", {
+        headers: {
+            accept: "application/vnd.github.v3+json",
+            authorization: `token ${result.token}`,
+        },
+    })
+    const { login } = await getUserResponse.json()
+    $login.textContent = login
+    document.body.dataset.state = "signed-in"
+    return Promise.
+}
+
+function getCookies() {
+    const cookies = document.cookie.split("; ")
+    return cookies.reduce((acc, cookie) => {
+        const [key, value] = cookie.split("=")
+        acc[key] = value
+        return acc
+    }, {})
+}
+
+if (code) {
+    login(code)
 }
