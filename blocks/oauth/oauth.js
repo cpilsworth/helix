@@ -25,3 +25,5 @@ async function showUser() {
     2,
   )}`
 }
+
+showUser()
