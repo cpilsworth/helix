@@ -4,10 +4,10 @@ version: 1
 indices:
   site:
     include:
-      - '/mysite/**'
+      - '/**'
     exclude:
       - '**/Document.*'
-    target: https://docs.google.com/spreadsheets/d/1bUQradw9rze2LulmJdRidas902HYTRzKdDz9WE1A5Io
+    target: /query-index
     properties:
       author:
         select: head > meta[name="author"]
