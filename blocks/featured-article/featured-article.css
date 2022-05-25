@@ -8,6 +8,10 @@
     display: flex;
 }
 
+.featured-article div div h3 {
+    color: hotpink;
+}
+
 .featured-article>div div:first-child {
     left: 0;
     width: 30%;
